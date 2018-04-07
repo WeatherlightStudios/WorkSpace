@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Terrain\ChunkManager.cs" />
      <Compile Include="Assets\Terrain\Grid.cs" />
      <Compile Include="Assets\Terrain\Noise.cs" />
      <None Include="Assets\ShaderTests\FireIGuess.shader" />
