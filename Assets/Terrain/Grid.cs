@@ -13,6 +13,12 @@ public class Grid : MonoBehaviour {
 	
 	public bool[,,] grid;
 	
+	[Range(0f,1000f)]
+	public float dimension = 1;
+	
+	[Range(0,50)]
+	public int LOD = 1;
+	
 	private Mesh mesh;
 	private List<Vector3> verts;
 	private List<int> tri;
@@ -20,7 +26,6 @@ public class Grid : MonoBehaviour {
 	private List<Vector3> norm;
 	private Vector3[] normals;
 	
-	//int mapWidth, int mapHeight, float scale, int seed, int octaves,float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode
 	[Range(0.1f,100f)]
 	public float scale;
 	public int seed;
@@ -38,38 +43,76 @@ public class Grid : MonoBehaviour {
 		
 	}
 	
+	void MeshCreation(){
+		Setup();
+		
+		//noise della griglia estesa
+		float[,] fullNoise = Noise.NoiseMapGenerator(GetLOD+2, GetLOD+2, Spacing, scale, seed, octaves, persistance, lacunarity, offset, normalize);
+		//cut-out della griglia renderizzata
+		float[,] noise = new float[GetLOD+1,GetLOD+1];
+		for(int y = 1; y <= GetLOD+1; y++){
+			for(int x = 1; x <= GetLOD+1; x++){
+				noise[x-1,y-1] = fullNoise[x,y];
+			}
+		}
+		
+		//calcoli principali mesh
+		CreateMesh(noise);
+		
+		
+		//calcolo posizioni di tutti i vertici
+		//TODO: ora parte di questi vengono ricalcolati, meglio fare un cut-out come il noise
+		List<Vector3> fullVerts = new List<Vector3>();
+		for(int y = 0; y <= GetLOD+2; y++){
+			for (int x = 0; x <= GetLOD+2; x++)
+			{
+				float fullHeight = fullNoise[x,y];
+				Vector3 pos = new Vector3(x,fullHeight,y);
+				fullVerts.Add(pos);
+			}
+		}
+		
+		//calcolo normali
+		Normals(fullNoise);
+		
+		
+		//passa informazioni alla mesh
+		Create();
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		
 	}
 	
-	void OnDrawGizmos(){
-		Setup();
-		float[,] fullNoise = Noise.NoiseMapGenerator(size+2, size+2, scale, seed, octaves, persistance, lacunarity, offset, normalize);
-		
-		float[,] noise = new float[size+1,size+1];
-		for(int y = 1; y <= size+1; y++){
-			for(int x = 1; x <= size+1; x++){
-				noise[x-1,y-1] = fullNoise[x,y];
-			}
+	float Spacing{	
+		get{
+			return dimension/GetLOD;
 		}
-		
-		
-		
-		for(int y = 0; y <= size; y++){
-			for (int x = 0; x <= size; x++)
+	}
+	
+	int GetLOD{	
+		get{
+			return LOD+1;
+		}
+	}
+	
+	void CreateMesh(float[,] noise){
+
+		for(int y = 0; y <= GetLOD; y++){
+			for (int x = 0; x <= GetLOD; x++)
 			{
 				float currentHeight = noise[x,y];
 				
 				//verts
-				Vector3 pos = new Vector3(x,currentHeight,y);
+				Vector3 pos = new Vector3(x * Spacing,currentHeight,y * Spacing);
 				verts.Add(pos);
 				
 				//tris
-				if(x < size && y < size){
-					int t1 = x + y * size + y;
+				if(x < GetLOD && y < GetLOD){
+					int t1 = x + y * (GetLOD + 1);
 					int t2 = t1 + 1;
-					int t3 = t1 + size + 1;
+					int t3 = t1 + GetLOD + 1;
 					int t4 = t3 + 1;
 					tri.Add(t1);
 					tri.Add(t3);
@@ -79,40 +122,26 @@ public class Grid : MonoBehaviour {
 					tri.Add(t2);
 				}
 				
+				
 				//uvs
-				Vector2 uv = new Vector2(x / size, y / size);
+				Vector2 uv = new Vector2(x / GetLOD, y / GetLOD);
 				uvs.Add(uv);
 			}
 		}
 		
+	}
+	
+	void Normals(float[,] fullNoise){
 		
-		
-		List<Vector3> fullVerts = new List<Vector3>();
-		for(int y = 0; y <= size+2; y++){
-			for (int x = 0; x <= size+2; x++)
+		Vector3[,] norms = new Vector3[GetLOD+3,GetLOD+3];
+		for(int y = 0; y  < GetLOD+2; y++){
+			for (int x = 0; x < GetLOD+2; x++)
 			{
-				float fullHeight = fullNoise[x,y];
-				Vector3 pos = new Vector3(x,fullHeight,y);
-				fullVerts.Add(pos);
-			}
-		}
-		
-		/*
-		3-----4
-		|	  |
-		| 	  |
-		1-----2
-		 */
-		
-		Vector3[,] norms = new Vector3[size+3,size+3];
-		for(int y = 0; y < size+2; y++){
-			for (int x = 0; x < size+2; x++)
-			{
-				
-				Vector3 pos1 = new Vector3(x,   fullNoise[x,  y],   y);
-				Vector3 pos2 = new Vector3(x+1, fullNoise[x+1,y],   y);
-				Vector3 pos3 = new Vector3(x,   fullNoise[x,  y+1], y+1);
-				Vector3 pos4 = new Vector3(x+1, fullNoise[x+1,y+1], y+1);
+			  //Vector3 pos  = new Vector3(x * Spacing/GetLOD,currentHeight,y * Spacing/GetLOD);
+				Vector3 pos1 = new Vector3( x    * Spacing, fullNoise[ x    ,  y    ],  y    * Spacing);
+				Vector3 pos2 = new Vector3((x+1) * Spacing, fullNoise[(x+1) ,  y    ],  y    * Spacing);
+				Vector3 pos3 = new Vector3( x    * Spacing, fullNoise[ x    , (y+1) ], (y+1) * Spacing);
+				Vector3 pos4 = new Vector3((x+1) * Spacing, fullNoise[(x+1) , (y+1) ], (y+1) * Spacing);
 				
 				Vector3 norm1 = calculateNormal(pos1, pos3, pos2);
 				Vector3 norm2 = calculateNormal(pos4, pos2, pos3);
@@ -125,85 +154,22 @@ public class Grid : MonoBehaviour {
 			}
 		}
 		
-		
+		//rinormalizzazione
 		int j = 0;
-		for(int y = 1; y <= size+1; y++){
-			for(int x = 1; x <= size+1; x++){
-				normals[j] = norms[x,y];
+		for(int y = 1; y <= GetLOD+1; y++){
+			for(int x = 1; x <= GetLOD+1; x++){
+				normals[j] = norms[x,y].normalized;
 				j++;
 			}
 		}
 		
-		for(int i = 0; i < normals.Length; i++){
-			normals[i] = normals[i].normalized;
-		}
-		
-		Create();
-		
-		/*
-		for(int i = 0; i < fullNoise.Length-1; i++){
-			int vertextIndexA = tri[i];
-			int vertextIndexB = tri[i+1];
-			int vertextIndexC = tri[i+2];
-			Vector3 norm = calculateNormal(verts.ToArray(), vertextIndexA, vertextIndexB, vertextIndexC);
-			normals[vertextIndexA] += norm;
-			normals[vertextIndexB] += norm;
-			normals[vertextIndexC] += norm;
-		}
-		 */
-		
-		// print("verts: " + verts.Count);
-		// print("tri:" + tri.Count);
-		// print("norm: " + normals.Length);
-		
-		
-		// for(int i = 0; i < mesh.normals.Length; i++)
-		// {
-		// 	Gizmos.DrawRay(mesh.vertices[i] + transform.position, mesh.normals[i]);
-		// }
 	}
 	
-	/*
-	//calculate normals for right area
-		for(int i = 0; i < tri.Count; i+=3){
-			int vertextIndexA = tri[i];
-			int vertextIndexB = tri[i+1];
-			int vertextIndexC = tri[i+2];
-			Vector3 norm = calculateNormal(verts.ToArray(), vertextIndexA, vertextIndexB, vertextIndexC);
-			normals[vertextIndexA] += norm;
-			normals[vertextIndexB] += norm;
-			normals[vertextIndexC] += norm;
-		}
+	void OnDrawGizmos(){
+		MeshCreation();
 		
-		//setup to calculate border normals
-		List<Vector3> fullVerts = new List<Vector3>();
-		for(int y = 0; y <= size+1; y++){
-			for (int x = 0; x < size+1; x++)
-			{
-				float fullHeight = fullNoise[x,y];
-				Vector3 pos = new Vector3(x,fullHeight,y);
-				fullVerts.Add(pos);
-			}
-		}
-		
-		//for every vertex of the border calculate normals
-		for(int y = 0; y <= size+1; y++){
-			for(int x = 0; x <= size+1; x++){
-				int indA = x + y*(size+2);
-				int indB = indA + 1;
-				int indC = indA + y*(size+2);
-				int indD = indC + 1;
-				
-				Vector3 norm1 = calculateNormal(fullVerts.ToArray(), indA, indB, indC);
-				Vector3 norm2 = calculateNormal(fullVerts.ToArray(), indD, indB, indC);
-			}
-		}
-		
-		for(int i = 0; i < normals.Length; i++){
-			normals[i] = normals[i].normalized;
-		}
-	 */
-	 
+	}
+	
 	Vector3 calculateNormal(Vector3 a, Vector3 b, Vector3 c){
 		
 		Vector3 sideAB = b - a;
@@ -223,6 +189,7 @@ public class Grid : MonoBehaviour {
 	}
 	
 	void Create(){
+		
 		mesh.vertices = verts.ToArray();
 		mesh.triangles = tri.ToArray();
 		mesh.uv = uvs.ToArray();
@@ -238,7 +205,7 @@ public class Grid : MonoBehaviour {
 		verts = new List<Vector3>();
 		tri = new List<int>();
 		uvs = new List<Vector2>();
-		normals = new Vector3[(size+1)*(size+1)];
+		normals = new Vector3[(GetLOD+1)*(GetLOD+1)];
 		norm = new List<Vector3>();
 		
 		mesh = new Mesh();

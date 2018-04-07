@@ -4,10 +4,11 @@ using System.Collections;
 public static class Noise {
 
     public enum NormalizeMode {Local, Global};
-
-	public static float[,] NoiseMapGenerator(int mapWidth, int mapHeight, float scale, int seed, int octaves,float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode){
+    
+    
+	public static float[,] NoiseMapGenerator(int mapWidth, int mapHeight, float spacing, float scale, int seed, int octaves,float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode){
         
-        float[,] noiseMap = new float[mapWidth +1, mapHeight +1]; // potential fix= mapWidth + 1; mapHeight + 1
+        float[,] noiseMap = new float[mapWidth +1, mapHeight +1];
 
         
         System.Random prng = new System.Random(seed);
@@ -35,21 +36,21 @@ public static class Noise {
         float maxNoiseHeight = float.MinValue;
         float minNoiseHeight = float.MaxValue;
 
-        float halfWidth = mapWidth / 2f;
-        float halfHeight = mapHeight / 2f;
+        // float halfWidth = mapWidth / 2f;
+        // float halfHeight = mapHeight / 2f;
 
-        for(int x=0; x <= mapWidth; x++)
+        for(int x = 0; x <= mapWidth; x++)
         {
             for(int y = 0; y <= mapHeight; y++)
             {
                 amplitude = 1;
                 frequency = 1;
                 float noiseHeight = 0;
-
+                
                 for (int i = 0; i < octaves; i++)
                 {
-                    float sampleX = (x - halfWidth + octaveOffsets[i].x) / scale * frequency ;    //
-                    float sampleY = (y - halfHeight + octaveOffsets[i].y) / scale * frequency ;    //
+                    float sampleX = (x*spacing + octaveOffsets[i].x) / scale * frequency ;
+                    float sampleY = (y*spacing + octaveOffsets[i].y) / scale * frequency ;
 
                     float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1;
                     noiseHeight += perlinValue * amplitude;
@@ -57,7 +58,7 @@ public static class Noise {
                     amplitude *= persistance;
                     frequency *= lacunarity;
                 }
-
+                
                 if(noiseHeight > maxNoiseHeight)
                 {
                     maxNoiseHeight = noiseHeight;

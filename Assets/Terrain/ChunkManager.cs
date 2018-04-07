@@ -9,10 +9,15 @@ public class ChunkManager : MonoBehaviour {
 	public float viewDist;
 	public Vector3 viewPos;
 	
+	[Range(0f,100f)]
+	public float midRadiusPercentage;
+	[Range(0f,100f)]
+	public float highRadiusPercentage;
+	
 	public int quadSize;
 	
 	private List<GameObject> spawned;
-	
+
 	// Use this for initialization
 	void Start () {
 		spawned = new List<GameObject>();
@@ -27,8 +32,9 @@ public class ChunkManager : MonoBehaviour {
 				float roundedZ = viewPos.z - viewPos.z % quadSize;
 				Vector3 roundedPos = new Vector3(roundedX,0,roundedZ);
 				Vector3 currentPos = roundedPos + new Vector3(x - x % quadSize,0,y - y % quadSize);
-				float dist = Vector3.Distance(currentPos, roundedPos);
-				if(dist<viewDist){
+				Vector3 distance = roundedPos - currentPos;//Vector3.Distance(currentPos, roundedPos);
+				float dist = distance.x * distance.x + distance.z * distance.z;
+				if(dist<viewDist*viewDist){
 					//check if quad exist
 					GameObject obj = FindObjAtPos(currentPos);
 					if(obj == null){
@@ -56,11 +62,26 @@ public class ChunkManager : MonoBehaviour {
 		return null;
 	}
 	
+	float MidRadius{
+		get{
+			return viewDist * midRadiusPercentage / 100;
+		}
+	}
+	
+	float HighRadius{
+		get{
+			return MidRadius * highRadiusPercentage / 100;
+		}
+	}
 	
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(viewPos, viewDist);
+		Gizmos.color = Color.cyan;
+		Gizmos.DrawWireSphere(viewPos, MidRadius);
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(viewPos, HighRadius);
 	}
 	
 }
