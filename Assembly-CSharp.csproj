@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\GrabChallenge\Grab.cs" />
+     <Compile Include="Assets\GrabChallenge\JasonGrab.cs" />
      <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\Terrain\ChunkManager.cs" />
      <Compile Include="Assets\Terrain\Grid.cs" />

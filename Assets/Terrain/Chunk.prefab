@@ -98,7 +98,7 @@ MonoBehaviour:
   height: 2
   squaresSide: 0
   dimension: 10
-  LOD: 2
+  LOD: 15
   scale: 3.3
   seed: 0
   octaves: 3

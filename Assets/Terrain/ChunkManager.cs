@@ -21,12 +21,42 @@ public class ChunkManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spawned = new List<GameObject>();
+		CheckBetweenRadius(0,viewDist);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		for(int y = (int)-viewDist; y <= viewDist; y += quadSize){
-			for (int x = (int)-viewDist; x <= viewDist; x += quadSize)
+		CheckBetweenRadius(viewDist-quadSize, viewDist);
+	}
+	
+	void CheckBetweenRadius(float minRadius, float maxRadius){
+		for(int y = (int)- maxRadius; y <= maxRadius; y += quadSize){
+			for (int x = (int)-maxRadius; x <= maxRadius; x += quadSize)
+			{
+				float roundedX = viewPos.x - viewPos.x % quadSize;
+				float roundedZ = viewPos.z - viewPos.z % quadSize;
+				Vector3 roundedPos = new Vector3(roundedX,0,roundedZ);
+				Vector3 currentPos = roundedPos + new Vector3(x - x % quadSize,0,y - y % quadSize);
+				//check if quad exist
+				GameObject obj = FindObjAtPos(currentPos);
+				if(obj == null){
+					//if it doesn't create it and set offset
+					GameObject chunked = Instantiate(chunk, currentPos, Quaternion.identity);
+					spawned.Add(chunked);
+					chunked.GetComponent<Grid>().offset = new Vector2(currentPos.x, currentPos.z);
+				}
+				else{
+					//if it does, activate it
+					obj.SetActive(true);
+				}
+			}
+		}
+	}
+	
+	/*
+	
+	for(int y = (int)- maxRadius; y <= maxRadius; y += quadSize){
+			for (int x = (int)-maxRadius; x <= maxRadius; x += quadSize)
 			{
 				float roundedX = viewPos.x - viewPos.x % quadSize;
 				float roundedZ = viewPos.z - viewPos.z % quadSize;
@@ -34,7 +64,7 @@ public class ChunkManager : MonoBehaviour {
 				Vector3 currentPos = roundedPos + new Vector3(x - x % quadSize,0,y - y % quadSize);
 				Vector3 distance = roundedPos - currentPos;//Vector3.Distance(currentPos, roundedPos);
 				float dist = distance.x * distance.x + distance.z * distance.z;
-				if(dist<viewDist*viewDist){
+				if(dist>= minRadius*minRadius && dist<maxRadius*maxRadius){
 					//check if quad exist
 					GameObject obj = FindObjAtPos(currentPos);
 					if(obj == null){
@@ -50,7 +80,7 @@ public class ChunkManager : MonoBehaviour {
 				}
 			}
 		}
-	}
+	 */
 	
 	GameObject FindObjAtPos(Vector3 pos){
 		foreach (GameObject obj in spawned)
