@@ -13,10 +13,10 @@ public class Grid : MonoBehaviour {
 	
 	public bool[,,] grid;
 	
-	[Range(0f,1000f)]
+	[Range(0f,10000f)]
 	public float dimension = 1;
 	
-	[Range(0,50)]
+	[Range(0,10000)]
 	public int LOD = 1;
 	
 	private Mesh mesh;
@@ -26,24 +26,26 @@ public class Grid : MonoBehaviour {
 	private List<Vector3> norm;
 	private Vector3[] normals;
 	
-	[Range(0.1f,100f)]
+	public AnimationCurve curve;
+	
+	[Range(0.1f,10000f)]
 	public float scale;
 	public int seed;
 	[Range(1,5)]
 	public int octaves;
-	[Range(0.1f,10f)]
-	public float persistance;
 	[Range(0.001f,1f)]
+	public float persistance;
+	[Range(1f,10f)]
 	public float lacunarity;
 	public Vector2 offset;
 	public Noise.NormalizeMode normalize;
 	
 	// Use this for initialization
 	void Start () {
-		
+		MeshCreation();
 	}
 	
-	void MeshCreation(){
+	public void MeshCreation(){
 		Setup();
 		
 		//noise della griglia estesa
@@ -66,7 +68,7 @@ public class Grid : MonoBehaviour {
 		for(int y = 0; y <= GetLOD+2; y++){
 			for (int x = 0; x <= GetLOD+2; x++)
 			{
-				float fullHeight = fullNoise[x,y];
+				float fullHeight = curve.Evaluate(fullNoise[x,y]);
 				Vector3 pos = new Vector3(x,fullHeight,y);
 				fullVerts.Add(pos);
 			}
@@ -102,7 +104,7 @@ public class Grid : MonoBehaviour {
 		for(int y = 0; y <= GetLOD; y++){
 			for (int x = 0; x <= GetLOD; x++)
 			{
-				float currentHeight = noise[x,y];
+				float currentHeight = curve.Evaluate(noise[x,y]);
 				
 				//verts
 				Vector3 pos = new Vector3(x * Spacing,currentHeight,y * Spacing);
@@ -124,8 +126,9 @@ public class Grid : MonoBehaviour {
 				
 				
 				//uvs
-				Vector2 uv = new Vector2(x / GetLOD, y / GetLOD);
+				Vector2 uv = new Vector2((float)x / GetLOD, (float)y / GetLOD);
 				uvs.Add(uv);
+				//print((float)x/GetLOD + "   " + (float)y/GetLOD);
 			}
 		}
 		
@@ -138,10 +141,10 @@ public class Grid : MonoBehaviour {
 			for (int x = 0; x < GetLOD+2; x++)
 			{
 			  //Vector3 pos  = new Vector3(x * Spacing/GetLOD,currentHeight,y * Spacing/GetLOD);
-				Vector3 pos1 = new Vector3( x    * Spacing, fullNoise[ x    ,  y    ],  y    * Spacing);
-				Vector3 pos2 = new Vector3((x+1) * Spacing, fullNoise[(x+1) ,  y    ],  y    * Spacing);
-				Vector3 pos3 = new Vector3( x    * Spacing, fullNoise[ x    , (y+1) ], (y+1) * Spacing);
-				Vector3 pos4 = new Vector3((x+1) * Spacing, fullNoise[(x+1) , (y+1) ], (y+1) * Spacing);
+				Vector3 pos1 = new Vector3( x    * Spacing,curve.Evaluate(fullNoise[ x    ,  y    ]),  y    * Spacing);
+				Vector3 pos2 = new Vector3((x+1) * Spacing,curve.Evaluate(fullNoise[(x+1) ,  y    ]),  y    * Spacing);
+				Vector3 pos3 = new Vector3( x    * Spacing,curve.Evaluate(fullNoise[ x    , (y+1) ]), (y+1) * Spacing);
+				Vector3 pos4 = new Vector3((x+1) * Spacing,curve.Evaluate(fullNoise[(x+1) , (y+1) ]), (y+1) * Spacing);
 				
 				Vector3 norm1 = calculateNormal(pos1, pos3, pos2);
 				Vector3 norm2 = calculateNormal(pos4, pos2, pos3);
@@ -166,7 +169,7 @@ public class Grid : MonoBehaviour {
 	}
 	
 	void OnDrawGizmos(){
-		MeshCreation();
+		//MeshCreation();
 		
 	}
 	

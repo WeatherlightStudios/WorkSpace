@@ -94,15 +94,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2feba2e8c9859bd4ca72dd34d6165773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 16
+  size: 2000
   height: 2
   squaresSide: 0
-  dimension: 10
-  LOD: 15
-  scale: 3.3
+  dimension: 500
+  LOD: 100
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.33
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.9972136
+      value: 380.5611
+      inSlope: 372.97122
+      outSlope: 372.97122
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1.6676024
+      value: 2239.9
+      inSlope: 2240.1748
+      outSlope: 2240.1748
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 2
+      value: 2500
+      inSlope: 782.49695
+      outSlope: 782.49695
+      tangentMode: 34
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  scale: 2104
   seed: 0
-  octaves: 3
-  persistance: 0.1
-  lacunarity: 1
+  octaves: 5
+  persistance: 0.273
+  lacunarity: 2.74
   offset: {x: 0, y: 0}
   normalize: 1

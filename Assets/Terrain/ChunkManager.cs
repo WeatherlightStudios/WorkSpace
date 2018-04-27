@@ -26,7 +26,7 @@ public class ChunkManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		CheckBetweenRadius(viewDist-quadSize, viewDist);
+		//CheckBetweenRadius(viewDist-quadSize, viewDist);
 	}
 	
 	void CheckBetweenRadius(float minRadius, float maxRadius){
