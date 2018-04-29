@@ -51,14 +51,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CameraMovement.cs" />
-     <Compile Include="Assets\GrabChallenge\Grab.cs" />
-     <Compile Include="Assets\GrabChallenge\JasonGrab.cs" />
-     <Compile Include="Assets\PlayerMovement.cs" />
-     <Compile Include="Assets\Terrain\ChunkManager.cs" />
-     <Compile Include="Assets\Terrain\Grid.cs" />
-     <Compile Include="Assets\Terrain\Noise.cs" />
-     <None Include="Assets\ShaderTests\FireIGuess.shader" />
+     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\CameraFollow.cs" />
+     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\CharacterRotate.cs" />
+     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\CharacterWalk.cs" />
+     <Compile Include="Assets\Procedural_Terrain_Stuff\CameraMovement.cs" />
+     <Compile Include="Assets\Procedural_Terrain_Stuff\GrabChallenge\Grab.cs" />
+     <Compile Include="Assets\Procedural_Terrain_Stuff\GrabChallenge\JasonGrab.cs" />
+     <Compile Include="Assets\Procedural_Terrain_Stuff\PlayerMovement.cs" />
+     <Compile Include="Assets\Procedural_Terrain_Stuff\Terrain\ChunkManager.cs" />
+     <Compile Include="Assets\Procedural_Terrain_Stuff\Terrain\Grid.cs" />
+     <Compile Include="Assets\Procedural_Terrain_Stuff\Terrain\Noise.cs" />
+     <None Include="Assets\Procedural_Terrain_Stuff\ShaderTests\FireIGuess.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.3.1f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -23,7 +23,7 @@ public class Grid : MonoBehaviour {
 	private List<Vector3> verts;
 	private List<int> tri;
 	private List<Vector2> uvs;
-	private List<Vector3> norm;
+	//private List<Vector3> norm;
 	private Vector3[] normals;
 	
 	public AnimationCurve curve;
@@ -209,7 +209,7 @@ public class Grid : MonoBehaviour {
 		tri = new List<int>();
 		uvs = new List<Vector2>();
 		normals = new Vector3[(GetLOD+1)*(GetLOD+1)];
-		norm = new List<Vector3>();
+		//norm = new List<Vector3>();
 		
 		mesh = new Mesh();
 		mesh.name = "Chunk";

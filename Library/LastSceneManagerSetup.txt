@@ -1,1 +1,4 @@
-sceneSetups: []
+sceneSetups:
+- path: Assets/FIGHT_FIGHT_FIGHT/MovementScene.unity
+  isLoaded: 1
+  isActive: 1

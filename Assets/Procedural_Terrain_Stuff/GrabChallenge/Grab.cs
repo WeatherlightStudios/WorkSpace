@@ -9,7 +9,7 @@ public class Grab : MonoBehaviour {
 
 	public LayerMask mask;
 	public float up;
-	private Vector3 startingPos = Vector3.zero;
+    //private Vector3 startingPos = Vector3.zero;
 	private Vector3 lastPosHit = Vector3.zero;
 	RaycastHit hit;
 	
@@ -19,7 +19,7 @@ public class Grab : MonoBehaviour {
         {
             //transform.Translate(0, 0.3f, 0);
             asd = true;
-			startingPos = transform.position;
+			//startingPos = transform.position;
         }
 		
 		Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
