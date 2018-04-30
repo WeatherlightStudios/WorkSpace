@@ -51,10 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\CameraFollow.cs" />
-     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\CharacterRotate.cs" />
-     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\CharacterWalk.cs" />
-     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\Jump.cs" />
+     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\Scripts\Agility\CharacterRotate.cs" />
+     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\Scripts\Agility\CharacterWalk.cs" />
+     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\Scripts\Agility\Jump.cs" />
+     <Compile Include="Assets\FIGHT_FIGHT_FIGHT\Scripts\Camera\CameraFollow.cs" />
      <Compile Include="Assets\Procedural_Terrain_Stuff\CameraMovement.cs" />
      <Compile Include="Assets\Procedural_Terrain_Stuff\GrabChallenge\Grab.cs" />
      <Compile Include="Assets\Procedural_Terrain_Stuff\GrabChallenge\JasonGrab.cs" />

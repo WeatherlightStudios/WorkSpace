@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/FIGHT_FIGHT_FIGHT/SFX.unity
+- path: Assets/FIGHT_FIGHT_FIGHT/Scenes/MovementScene.unity
   isLoaded: 1
   isActive: 1
