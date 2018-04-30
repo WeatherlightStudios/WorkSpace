@@ -152,12 +152,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 199326319007163002, guid: d86b9962db122ab4b95d6482f38c24a7,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 71d5220b7ddaeea41b62d0c01f1b9d93, type: 2}
-    - target: {fileID: 199319151486892862, guid: d86b9962db122ab4b95d6482f38c24a7,
+    - target: {fileID: 199017824149795572, guid: d86b9962db122ab4b95d6482f38c24a7,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -167,27 +162,16 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 71d5220b7ddaeea41b62d0c01f1b9d93, type: 2}
-    - target: {fileID: 199017824149795572, guid: d86b9962db122ab4b95d6482f38c24a7,
+    - target: {fileID: 199319151486892862, guid: d86b9962db122ab4b95d6482f38c24a7,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 71d5220b7ddaeea41b62d0c01f1b9d93, type: 2}
-    - target: {fileID: 1635501565316284, guid: d86b9962db122ab4b95d6482f38c24a7, type: 2}
-      propertyPath: m_Name
-      value: Electricity
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946434931933632, guid: d86b9962db122ab4b95d6482f38c24a7, type: 2}
-      propertyPath: m_Name
-      value: SubElectro
-      objectReference: {fileID: 0}
-    - target: {fileID: 1914252158875594, guid: d86b9962db122ab4b95d6482f38c24a7, type: 2}
-      propertyPath: m_Name
-      value: SubElectro2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4033675934937710, guid: d86b9962db122ab4b95d6482f38c24a7, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.69
-      objectReference: {fileID: 0}
+    - target: {fileID: 199326319007163002, guid: d86b9962db122ab4b95d6482f38c24a7,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 71d5220b7ddaeea41b62d0c01f1b9d93, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d86b9962db122ab4b95d6482f38c24a7, type: 2}
   m_IsPrefabParent: 0

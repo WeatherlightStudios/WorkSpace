@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 198709283767310720}
   - component: {fileID: 199181817186310066}
   m_Layer: 0
-  m_Name: Electricity (1)
+  m_Name: Electricity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 198096111256832534}
   - component: {fileID: 199326319007163002}
   m_Layer: 0
-  m_Name: Electricity (3)
+  m_Name: SubElectro2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 198446420762298286}
   - component: {fileID: 199319151486892862}
   m_Layer: 0
-  m_Name: Electricity (2)
+  m_Name: SubElectro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635501565316284}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 2.16, y: 0, z: -1}
+  m_LocalPosition: {x: 2.16, y: 0, z: -0.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4491916934169202}
@@ -285,7 +285,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1462544855
+  randomSeed: -2008802615
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10539,7 +10539,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2107771545
+  randomSeed: -588676032
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -16648,7 +16648,7 @@ ParticleSystem:
     textureMode: 0
     ribbonCount: 1
     worldSpace: 0
-    dieWithParticles: 1
+    dieWithParticles: 0
     sizeAffectsWidth: 1
     sizeAffectsLifetime: 0
     inheritParticleColor: 1
