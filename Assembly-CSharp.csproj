@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DamageEnemy.cs" />
      <Compile Include="Assets\FIGHT_FIGHT_FIGHT\Scripts\Agility\CharacterRotate.cs" />
      <Compile Include="Assets\FIGHT_FIGHT_FIGHT\Scripts\Agility\CharacterWalk.cs" />
      <Compile Include="Assets\FIGHT_FIGHT_FIGHT\Scripts\Agility\Jump.cs" />
