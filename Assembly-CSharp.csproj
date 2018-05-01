@@ -65,7 +65,21 @@
      <Compile Include="Assets\Procedural_Terrain_Stuff\Terrain\ChunkManager.cs" />
      <Compile Include="Assets\Procedural_Terrain_Stuff\Terrain\Grid.cs" />
      <Compile Include="Assets\Procedural_Terrain_Stuff\Terrain\Noise.cs" />
+     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\EditorLabel.cs" />
+     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\EnableCameraDepthInForward.cs" />
+     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\SoftNormalsToVertexColor.cs" />
+     <None Include="Assets\ShaderForge\Readme.txt" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\Vegetation.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\VertexAnimation.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\Refraction.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\Parallax.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\LightWrapping.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\VertexColorRounding.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\TessellationDisplacement.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\Tiles.shader" />
      <None Include="Assets\Procedural_Terrain_Stuff\ShaderTests\FireIGuess.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\PixelRotator.shader" />
+     <None Include="Assets\ShaderForge\Example Assets\Shaders\CustomLighting.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -149,6 +163,9 @@
  </Reference>
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/Users/giuli/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="ShaderForge">
+ <HintPath>E:/Git-Projects/WorkSpace/Assets/ShaderForge/Editor/ShaderForge.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
